@@ -1,77 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Use Font Awesome for icons -->
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <title>Music Player</title>
+</head>
 
-  <body>
-    <div class="screen">
-      <div class="top">
-        <i class="fas fa-bars menu-btn"></i>
-        <i class="fas fa-search"></i>
-      </div>
+<body>
+<!-- Main container -->
+<div class="screen">
+  <!-- with menu and search icons -->
+  <div class="top">
+    <i class="fas fa-bars menu-btn"></i>
+    <i class="fas fa-search"></i>
+  </div>
 
-      <div class="coverImage"></div>
-      <div class="bodyPlayer"></div>
+  <!-- Cover image section -->
+  <div class="coverImage"></div>
 
-      <div class="list-wrapper">
-        <table class="list" id="playlist">
-          <tr class="song">
-            <td class="nr">
-              <h5></h5>
-            </td>
-            <td class="title">
-              <h6></h6>
-            </td>
-            <td class="length">
-              <h5></h5>
-            </td>
-            <td>
-              <i class="fas fa-heart"></i>
-            </td>
-          </tr>
-        </table>
-      </div>
+  <!-- Main player section -->
+  <div class="bodyPlayer"></div>
 
-      <div class="bar">
-        <div class="dot"></div>
-        <div class="time">
-          <h5 class="current-time"></h5>
-          <h5 class="duration"></h5>
-        </div>
-      </div>
+  <!-- Playlist table -->
+  <div class="list-wrapper">
+    <table class="list" id="playlist">
+      <tr class="song">
+        <!-- Column for song number -->
+        <td class="nr">
+          <h5></h5>
+        </td>
+        <!-- Column for song title -->
+        <td class="title">
+          <h6></h6>
+        </td>
+        <!-- Column for song length -->
+        <td class="length">
+          <h5></h5>
+        </td>
+        <!-- Column for favorite icon -->
+        <td>
+          <i class="fas fa-heart"></i>
+        </td>
+      </tr>
+    </table>
+  </div>
 
-      <div class="info">
-        <h2></h2>
-        <h3></h3>
-      </div>
-
-      <div class="controls">
-        <i class="fas fa-backward" id="prev"></i>
-        <i class="fas fa-play" id="playpause"></i>
-        <i class="fas fa-forward" id="next"></i>
-      </div>
-
-      <div class="more-controls">
-        <i class="fas fa-heart" id="current-favourite"></i>
-        <i class="fas fa-random" id="shuffle"></i>
-        <i class="fas fa-repeat" id="repeat"></i>
-        <i class="fas fa-gear" id="options"></i>
-      </div>
-
-      <div class="current">title</div>
+  <!-- Progress bar -->
+  <div class="bar">
+    <div class="dot"></div>
+    <div class="time">
+      <h5 class="current-time"></h5>
+      <h5 class="duration"></h5>
     </div>
+  </div>
 
-    <script src="script.js"></script>
-  </body>
+  <!-- Song information -->
+  <div class="info">
+    <h2></h2>
+    <h3></h3>
+  </div>
+
+  <!-- Play controls -->
+  <div class="controls">
+    <i class="fas fa-backward" id="prev"></i>
+    <i class="fas fa-play" id="playpause"></i>
+    <i class="fas fa-forward" id="next"></i>
+  </div>
+
+  <!-- Additional control buttons -->
+  <div class="more-controls">
+    <i class="fas fa-heart" id="current-favourite"></i>
+    <i class="fas fa-random" id="shuffle"></i>
+    <i class="fas fa-repeat" id="repeat"></i>
+    <i class="fas fa-gear" id="options"></i>
+  </div>
+
+  <!-- Currently playing song's title -->
+  <div class="current">title</div>
+</div>
+
+<script src="script.js"></script>
+</body>
 </html>
