@@ -1,46 +1,46 @@
+// The player is have to play already preloaded songs
 const songs = [
   { title: "Great War", artist: "Sabaton", img_src: "1.jpg", src: "1.mp3" },
   { title: "Last Stand", artist: "Sabaton", img_src: "2.jpg", src: "2.mp3" },
   { title: "Megalovania", artist: "Toby Fox", img_src: "3.jpg", src: "3.mp3" }
 ];
 
-document.querySelector("#options");
-const menuBtn = document.querySelector(".menu-btn"),
-    screen = document.querySelector(".screen"),
-    playlistContainer = document.getElementById("playlist"),
-    coverImage = document.querySelector(".coverImage"),
-    infoWrapper = document.querySelector(".info"),
-    current = document.querySelector(".current"),
-    playPause = document.getElementById("playpause"),
-    prev = document.getElementById("prev"),
-    next = document.getElementById("next"),
-    currentFavourite = document.querySelector("#current-favourite"),
-    shuffleBtn = document.querySelector("#shuffle"),
-    repeatBtn = document.querySelector("#repeat"),
-    progressBar = document.querySelector(".bar"),
-    progressDot = document.querySelector(".dot"),
-    currentTimeEl = document.querySelector(".current-time"),
-    durationEl = document.querySelector(".duration");
+// Declare main variables and constants
+const menuBtn = document.querySelector(".menu-btn");
+const screen = document.querySelector(".screen");
+const playlistContainer = document.getElementById("playlist");
+const coverImage = document.querySelector(".coverImage");
+const infoWrapper = document.querySelector(".info");
+const current = document.querySelector(".current");
+const playPause = document.getElementById("playpause");
+const prev = document.getElementById("prev");
+const next = document.getElementById("next");
+const currentFavourite = document.querySelector("#current-favourite");
+const shuffleBtn = document.querySelector("#shuffle");
+const repeatBtn = document.querySelector("#repeat");
+const progressBar = document.querySelector(".bar");
+const progressDot = document.querySelector(".dot");
+const currentTimeEl = document.querySelector(".current-time");
+const durationEl = document.querySelector(".duration");
 
-let playing = false,
-    currentSong = 0,
-    favourites = [],
-    shuffle = false,
-    repeat = 0;
+let playing = false;
+let currentSong = 0;
+let favourites = [];
+let shuffle = false;
+let repeat = 0;
+
+// Create new of Audio class
 const audio = new Audio();
 
-menuBtn.addEventListener("click", () => {
-  screen.classList.toggle("active");
-});
-
+// Add to list and load first song from there to start the player
 const init = () => {
   addToList(songs);
   loadSong(currentSong);
 };
 
+// Add songs to the playlist
 const addToList = (songs) => {
   playlistContainer.innerHTML = "";
-
   for (const [index, song] of songs.entries()) {
     const { title, src } = song;
     const isFavourite = favourites.includes(index);
@@ -52,7 +52,6 @@ const addToList = (songs) => {
       <td class="length"><h5>00:00</h5></td>
       <td><i class="fas fa-heart ${isFavourite ? "active" : ""} favourite-list"></i></td>
     `;
-
     tr.addEventListener("click", (e) => {
       if (e.target.classList.contains("favourite-list")) {
         toggleFavourite(index);
@@ -67,7 +66,6 @@ const addToList = (songs) => {
       playing = true;
     });
     playlistContainer.appendChild(tr);
-
     const audioForDuration = new Audio(`data/${src}`);
     audioForDuration.addEventListener("loadedmetadata", () => {
       const duration = audioForDuration.duration;
@@ -76,6 +74,7 @@ const addToList = (songs) => {
   }
 };
 
+// Load the current song
 const loadSong = (num) => {
   const song = songs[num];
   coverImage.style.backgroundImage = `url(data/${song.img_src})`;
@@ -86,6 +85,7 @@ const loadSong = (num) => {
   updateProgress();
 };
 
+// Play the next song
 const nextSong = () => {
   if (shuffle) {
     currentSong = Math.floor(Math.random() * songs.length);
@@ -95,9 +95,12 @@ const nextSong = () => {
     currentSong = 0;
   }
   loadSong(currentSong);
-  if (playing) audio.play();
+  if (playing) {
+    audio.play();
+  }
 };
 
+// Play the previous song
 const prevSong = () => {
   if (shuffle) {
     currentSong = Math.floor(Math.random() * songs.length);
@@ -107,20 +110,24 @@ const prevSong = () => {
     currentSong = songs.length - 1;
   }
   loadSong(currentSong);
-  if (playing) audio.play();
+  if (playing) {
+    audio.play();
+  }
 };
 
+// Toggle the play/pause button
 const togglePlayPause = () => {
   if (playing) {
-    playPause.classList.replace("fa-pause", "fa-play");
     audio.pause();
+    playPause.classList.replace("fa-pause", "fa-play");
   } else {
-    playPause.classList.replace("fa-play", "fa-pause");
     audio.play();
+    playPause.classList.replace("fa-play", "fa-pause");
   }
   playing = !playing;
 };
 
+// Toggle the favourite status of the current song
 const toggleFavourite = (index) => {
   if (favourites.includes(index)) {
     favourites = favourites.filter((item) => item !== index);
@@ -131,16 +138,19 @@ const toggleFavourite = (index) => {
   addToList(songs);
 };
 
+// Toggle the shuffle button
 const toggleShuffle = () => {
   shuffle = !shuffle;
   shuffleBtn.classList.toggle("active");
 };
 
+// Toggle the repeat button
 const toggleRepeat = () => {
   repeat = (repeat + 1) % 3;
   repeatBtn.classList.toggle("active", repeat > 0);
 };
 
+// Update the progress bar
 const updateProgress = () => {
   const { duration, currentTime } = audio;
   currentTimeEl.innerHTML = formatTime(currentTime);
@@ -149,18 +159,21 @@ const updateProgress = () => {
   progressDot.style.left = `${progressPercent}%`;
 };
 
+// Format the time
 const formatTime = (time) => {
   const minutes = Math.floor(time / 60);
   const seconds = Math.floor(time % 60);
   return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
+// Set the progress of the song
 const setProgress = (e) => {
   const width = progressBar.clientWidth;
   const clickX = e.offsetX;
   audio.currentTime = (clickX / width) * audio.duration;
 };
 
+// Add event listeners
 audio.addEventListener("timeupdate", updateProgress);
 audio.addEventListener("ended", () => {
   if (repeat === 1) {
@@ -178,7 +191,9 @@ audio.addEventListener("ended", () => {
     playing = false;
   }
 });
-
+menuBtn.addEventListener("click", () => {
+  screen.classList.toggle("active");
+});
 playPause.addEventListener("click", togglePlayPause);
 next.addEventListener("click", nextSong);
 prev.addEventListener("click", prevSong);
@@ -187,7 +202,7 @@ repeatBtn.addEventListener("click", toggleRepeat);
 currentFavourite.addEventListener("click", () => {
   toggleFavourite(currentSong);
 });
-
 progressBar.addEventListener("click", setProgress);
 
+// Call the init function
 init();
